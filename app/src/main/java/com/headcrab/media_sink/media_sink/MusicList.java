@@ -151,13 +151,18 @@ public class MusicList extends Activity implements MediaPlayerControl {
     }
 
     public void songPicked(View view){
+        /*
         musicServ.setSong(Integer.parseInt(view.getTag().toString()));
         musicServ.playSong();
         if(playbackPaused){
             setController();
             playbackPaused=false;
         }
-        controller.show(0);
+        controller.show(0);*/
+        Intent intent = new Intent(this, SongDetails.class);
+        intent.putExtra("songIdx",Integer.parseInt(view.getTag().toString()));
+        intent.putExtra("service", playIntent);
+        startActivity(intent);
     }
 
     //-----helper
@@ -165,6 +170,10 @@ public class MusicList extends Activity implements MediaPlayerControl {
     public void getSongList(){
         //get song info
         ContentResolver musicResolver = getContentResolver();
+
+        //placeholder album art
+        Bitmap thisAlbumArt = BitmapFactory.decodeResource(getResources(), R.drawable.play);
+
 
         String[] musicUri = new String[]{"%Media-Sink/Music%"};
         Cursor musicCursor = musicResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + " like ? ",
@@ -190,13 +199,11 @@ public class MusicList extends Activity implements MediaPlayerControl {
                 Uri sArtworkUri = Uri.parse("content://media/external/audio/albumart");
                 Uri albumArtUri = ContentUris.withAppendedId(sArtworkUri, albumIdColumn);
 
-                Bitmap thisAlbumArt = null;
                 try {
                     thisAlbumArt = MediaStore.Images.Media.getBitmap(musicResolver, albumArtUri);
                     thisAlbumArt = Bitmap.createScaledBitmap(thisAlbumArt, 30, 30, true);
                 } catch (FileNotFoundException exception) {
                     exception.printStackTrace();
-                    thisAlbumArt = BitmapFactory.decodeResource(getResources(), R.drawable.play);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

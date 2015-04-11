@@ -182,10 +182,11 @@ public class MusicService extends Service implements
     }
 
     public void playPrev(){
-        songPosition--;
         if(songPosition == 0){
             songPosition = songs.size()-1;
         }
+        else
+            songPosition--;
         playSong();
     }
 

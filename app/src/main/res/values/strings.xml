@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">Home</string>
+    <string name="app_name">Media-Sink</string>
     <item name="action_settings" type="id">Settings</item>
-    <string name="title_activity_home">Media Sink</string>
+    <string name="title_activity_home">Media-Sink</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_song_details">SongDetails</string>
 </resources>
