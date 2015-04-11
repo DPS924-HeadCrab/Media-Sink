@@ -1,29 +1,23 @@
 package com.headcrab.media_sink.media_sink;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class Home extends ActionBarActivity {
-    protected Context THIS = null;
+public class SongDetails extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-        THIS = this;
+        setContentView(R.layout.activity_song_details);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
+        getMenuInflater().inflate(R.menu.menu_song_details, menu);
         return true;
     }
 
@@ -40,9 +34,5 @@ public class Home extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onToMusicListClicked(View v){
-        startActivity(new Intent(THIS, MusicList.class));
     }
 }

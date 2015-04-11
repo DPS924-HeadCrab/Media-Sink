@@ -151,13 +151,18 @@ public class MusicList extends Activity implements MediaPlayerControl {
     }
 
     public void songPicked(View view){
+        /*
         musicServ.setSong(Integer.parseInt(view.getTag().toString()));
         musicServ.playSong();
         if(playbackPaused){
             setController();
             playbackPaused=false;
         }
-        controller.show(0);
+        controller.show(0);*/
+        Intent intent = new Intent(this, SongDetails.class);
+        intent.putExtra("songIdx",Integer.parseInt(view.getTag().toString()));
+        intent.putExtra("service", playIntent);
+        startActivity(intent);
     }
 
     //-----helper
@@ -169,6 +174,10 @@ public class MusicList extends Activity implements MediaPlayerControl {
         MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
         byte[] rawArt;
         BitmapFactory.Options bfo = new BitmapFactory.Options();
+
+        //placeholder album art
+        Bitmap placeholderArt = BitmapFactory.decodeResource(getResources(), R.drawable.play);
+
 
         String[] musicUri = new String[]{"%Media-Sink/Music%"};
         Cursor musicCursor = musicResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + " like ? ",
@@ -200,7 +209,7 @@ public class MusicList extends Activity implements MediaPlayerControl {
                 try{
                     thisAlbumArt = BitmapFactory.decodeByteArray(rawArt, 0 , rawArt.length,bfo);
                 }catch( NullPointerException ex){
-                    thisAlbumArt = BitmapFactory.decodeResource(getResources(), R.drawable.play);
+                    thisAlbumArt = placeholderArt;
                 }
 
                 songList.add(new Song(thisId,thisTitle,thisArtist,thisLength, thisAlbumArt));
