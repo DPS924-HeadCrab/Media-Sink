@@ -26,6 +26,10 @@ public class SongAdapter extends BaseAdapter{
 
     private ArrayList<Song> songs;
     private LayoutInflater songInf;
+
+    private String[] listColors = {"#3498db","#1abc9c","#2ecc71","#f1c40f","#e67e22","#e74c3c"};
+    private int colorPicked = 0;
+
     private Context context;
     private DBAdapter db;
 
@@ -67,20 +71,6 @@ public class SongAdapter extends BaseAdapter{
 
         Song currentSong = songs.get(position);
 
-       /* Bitmap thisAlbumArt = null;
-
-        //get album art
-        MediaMetadataRetriever metadataRetriever = new MediaMetadataRetriever();
-        byte[] rawArt;
-        BitmapFactory.Options bfo = new BitmapFactory.Options();
-
-        metadataRetriever.setDataSource(songInf.getContext(), currentSong.getSongPath());
-        rawArt = metadataRetriever.getEmbeddedPicture();
-        try {
-            thisAlbumArt = BitmapFactory.decodeByteArray(rawArt, 0, rawArt.length, bfo);
-        } catch (NullPointerException ex) {
-            thisAlbumArt = null;
-        }*/
         new getImage(songInf.getContext(),currentSong.getSongPath(),imageView).execute();
         //imageView.setImageBitmap(thisAlbumArt);
         songView.setText(currentSong.getTitle());
@@ -132,7 +122,6 @@ public class SongAdapter extends BaseAdapter{
             super.onPostExecute(result);
 
             if(imv.getTag()!=null && !imv.getTag().toString().equals(path)){
-                Log.i("Completed","Image loaded");
                 return;
             }
 
@@ -143,7 +132,6 @@ public class SongAdapter extends BaseAdapter{
             else{
                 imv.setVisibility(View.GONE);
             }
-            Log.i("Completed","Image loaded");
         }
 
     }

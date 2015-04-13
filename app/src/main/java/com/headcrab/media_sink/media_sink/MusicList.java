@@ -183,7 +183,7 @@ public class MusicList extends Activity implements MediaPlayerControl {
     public void getSongList(DBAdapter db){
         ContentResolver musicResolver = getContentResolver();
 
-        String[] musicUri = new String[]{"%Media-Sink/Music%"};
+        String[] musicUri = new String[]{"%Music%"};
         Cursor musicCursor = musicResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, MediaStore.Audio.Media.DATA + " like ? ",
                     musicUri, null);
         //Iterate
